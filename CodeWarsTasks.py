@@ -56,3 +56,133 @@ List comprehension is used
 # def filter_list(l):
 #     return [x for x in l if type(x) is not str]
 # print(filter_list([1, 2, 'a', 'b', 'c', 3, "d"]))
+
+"""In a factory a printer prints labels for boxes. For one kind of boxes the 
+printer has to use colors which, for the sake of simplicity, are named with 
+letters from a to m.
+    The colors used by the printer are recorded in a control string. For example 
+a "good" control string would be aaabbbbhaijjjm meaning that the printer used 
+three times color a, four times color b, one time color h then one time color 
+a...
+    Sometimes there are problems: lack of colors, technical malfunction and a 
+"bad" control string is produced e.g. aaaxbbbbyyhwawiwjjjwwm with letters not 
+from a to m.
+    You have to write a function printer_error which given a string will return 
+the error rate of the printer as a string representing a rational whose 
+numerator is the number of errors and the denominator the length of the control 
+string. Don't reduce this fraction to a simpler expression.
+    The string has a length greater or equal to one and contains only letters 
+from a to z."""
+# def printer_errors(s):
+#     errors_number = 0
+#     for symbol in s:
+#         if ord(symbol) > 109: errors_number += 1
+#     # return(str(errors_number) + "/" + str(len(s)))
+#     # or
+#     return("{}/{}".format(errors_number, len(s)))
+
+# print(printer_errors("aaaxbbbbyyhwawiwjjjwwm"))
+
+
+"""Sum of positive
+
+You get an array of numbers, return the sum of all of the positives ones.
+Example [1,-4,7,12] => 1 + 7 + 12 = 20
+Note: if there is nothing to sum, the sum is default to 0.
+
+"""
+# def positive_sum(arr):
+#     return(sum([number for number in arr if number > 0]))
+
+# print(positive_sum([-1, -2, -3, -4, -5]))
+
+
+"""Array.diff
+
+    Your goal in this kata is to implement a difference function, which 
+subtracts one list from another and returns the result.
+    It should remove all values from list a, which are present in list b keeping 
+their order.
+        array_diff([1,2],[1]) == [2]
+    If a value is present in b, all of its occurrences must be removed from the 
+other:
+        array_diff([1,2,2,2,3],[2]) == [1,3]
+
+"""
+# def array_diff(a, b):
+#     return [element for element in a if element not in b]
+
+# print(array_diff([1, 2], [1]))
+
+
+"""Split strings
+
+    Complete the solution so that it splits the string into pairs of two 
+characters. If the string contains an odd number of characters then it should 
+replace the missing second character of the final pair with an underscore ('_').
+        Examples:
+    solution('abc') # should return ['ab', 'c_']
+    solution('abcdef') # should return ['ab', 'cd', 'ef']
+
+"""
+# def solution(s):
+#     if len(s) % 2 == 1: s += "_"
+#     return ["{}{}".format(s[i], s[i + 1]) for i in range(0, len(s) - 1, 2)]
+
+# print(solution("x"))
+
+
+"""Take a ten minute walk
+
+    You live in the city of Cartesia where all roads are laid out in a perfect 
+grid. You arrived ten minutes too early to an appointment, so you decided to 
+take the opportunity to go for a short walk. The city provides its citizens with 
+a Walk Generating App on their phones -- everytime you press the button it sends 
+you an array of one-letter strings representing directions to walk 
+(eg. ['n', 's', 'w', 'e']). You always walk only a single block for each letter 
+(direction) and you know it takes you one minute to traverse one city block, so 
+create a function that will return true if the walk the app gives you will take 
+you exactly ten minutes (you don't want to be early or late!) and will, of 
+course, return you to your starting point. Return false otherwise.
+    Note: you will always receive a valid array containing a random assortment 
+of direction letters ('n', 's', 'e', or 'w' only). It will never give you an 
+empty array (that's not a walk, that's standing still!).
+
+"""
+# def is_valid_walk(walk):
+#     moves = {'n': 0, 's': 0, 'e': 0, 'w': 0}
+#     for direction in moves.keys():  # Count moves in each direction
+#         moves[direction] = len([move for move in walk if move == direction])
+#     if (moves['n'] == moves['s'] and moves['e'] == moves['w'] and 
+#         len(walk) == 10):  # Sum of moves in opposite directions should be eq, 
+#                            # amount of moves should be 10
+#         return True
+#     return False
+
+# print(is_valid_walk(['w','e','w','e','w','e','w','e','w','e','w','e']))
+
+
+""" Delete occurences of an element if it occurs more than n times
+
+    Given a list lst and a number N, create a new list that contains each number 
+of lst at most N times without reordering. For example if N = 2, and the input 
+is [1,2,3,1,2,1,2,3], you take [1,2,3,1,2], drop the next [1,2] since this would 
+lead to 1 and 2 being in the result 3 times, and then take 3, which leads 
+to [1,2,3,1,2,3].
+    Example
+        delete_nth ([1,1,1,1],2) # return [1,1]  
+        delete_nth ([20,37,20,21],1) # return [20,37,21]
+
+"""
+# def delete_nth(order, max_e):
+#     for element in order: 
+#         number_of_repeats = order.count(element)
+#         if(number_of_repeats > max_e):  # If there are more elements than needed
+#             order.reverse()  # Deleting elements from the end
+#             for i in range(number_of_repeats - max_e):
+#                 order.remove(element)
+#             order.reverse()  # Reverse back
+#     return(order)
+
+
+# print(delete_nth([1,1,3,3,7,2,2,2,2], 3))
