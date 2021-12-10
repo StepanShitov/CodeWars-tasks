@@ -186,3 +186,72 @@ to [1,2,3,1,2,3].
 
 
 # print(delete_nth([1,1,3,3,7,2,2,2,2], 3))
+
+
+""" Pete, the baker
+
+    Write a function cakes(), which takes the recipe (object) and the available 
+ingredients (also an object) and returns the maximum number of cakes Pete can 
+bake (integer). For simplicity there are no units for the amounts (e.g. 1 lb of 
+flour or 200 g of sugar are simply 1 or 200). Ingredients that are not present 
+in the objects, can be considered as 0.
+    Examples:
+        # must return 2
+        cakes({flour: 500, sugar: 200, eggs: 1}, 
+              {flour: 1200, sugar: 1200, eggs: 5, milk: 200})
+        # must return 0
+        cakes({apples: 3, flour: 300, sugar: 150, milk: 100, oil: 100}, 
+              {sugar: 500, flour: 2000, milk: 2000})
+
+"""
+# def cakes(recipe, available):
+#     ingredients = list(available.keys()) 
+#     needed_ingredients = list(recipe.keys())
+#     cakes_amount = list()  # Save amount of possible cakes for each ingr
+#     for ingredient in needed_ingredients:
+#         if ingredient not in ingredients: return 0  # If there is no that ingr
+#         portions = (available[ingredient] // recipe[ingredient])
+#         cakes_amount.append(portions)
+#     return min(cakes_amount)
+
+# recipe = {'flour': 500, 'sugar': 200, 'eggs': 1}
+# # available = {"flour": 1200, "sugar": 1200, "eggs": 5, "milk": 200}
+# available = {'flour': 1200, 'sugar': 1200, 'eggs': 5, 'milk': 200}
+# print(cakes(recipe, available))
+
+
+""" Create phone number
+
+    Write a function that accepts an array of 10 integers (between 0 and 9), 
+that returns a string of those numbers in the form of a phone number.
+    Example
+        create_phone_number([1, 2, 3, 4, 5, 6, 7, 8, 9, 0]) # => 
+        returns "(123) 456-7890"
+    The returned format must be correct in order to complete this challenge.
+    Don't forget the space after the closing parentheses!
+
+"""
+# def create_phone_number(n):
+#     return "({}{}{}) {}{}{}-{}{}{}{}".format(*n)
+
+# print(create_phone_number([1, 1, 1, 1, 1, 1, 1, 1, 1, 1]))
+
+
+""" Detect pangram
+
+    A pangram is a sentence that contains every single letter of the alphabet at 
+least once. For example, the sentence "The quick brown fox jumps over the lazy 
+dog" is a pangram, because it uses the letters A-Z at least once (case is 
+irrelevant).
+    Given a string, detect whether or not it is a pangram. Return True if it is, 
+False if not. Ignore numbers and punctuation.
+
+"""
+
+import string
+
+def is_pangram(s):
+    return (True if len("abcdefghijklmnopqrstuvwxyz".strip(s.lower())) == 0 
+            else False)
+
+print(is_pangram("The quick, brown fox jumps over the lazy dog!"))
