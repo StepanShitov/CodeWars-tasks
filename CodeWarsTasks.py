@@ -248,10 +248,64 @@ False if not. Ignore numbers and punctuation.
 
 """
 
-import string
+# import string
 
-def is_pangram(s):
-    return (True if len("abcdefghijklmnopqrstuvwxyz".strip(s.lower())) == 0 
-            else False)
+# def is_pangram(s):
+#     return (True if len("abcdefghijklmnopqrstuvwxyz".strip(s.lower())) == 0 
+#             else False)
 
-print(is_pangram("The quick, brown fox jumps over the lazy dog!"))
+# print(is_pangram("The quick, brown fox jumps over the lazy dog!"))
+
+
+""" Scramblies
+
+    Complete the function scramble(str1, str2) that returns true if a portion of 
+str1 characters can be rearranged to match str2, otherwise returns false.
+    Notes:
+    Only lower case letters will be used (a-z). No punctuation or digits will be 
+    included.
+    Performance needs to be considered
+        Input strings s1 and s2 are null terminated.
+    Examples
+        scramble('rkqodlw', 'world') ==> True
+        scramble('cedewaraaossoqqyt', 'codewars') ==> True
+        scramble('katas', 'steak') ==> False
+
+"""
+# def scramble(s1, s2):
+#     print(len(s1), len(s2))
+#     if len(s2) > len(s1):
+#         return False
+#     for symbol in s1:
+#         print(symbol, s2)
+#         s2 = s2.replace(symbol, "", 1)
+#         if len(s2) == 0: break
+#     return True if len(s2) == 0 else False
+
+# def scramble(s1, s2):
+    # if len(s2) > len(s1):
+    #     return False
+    # for symbol in s1:
+    #     s2 = s2.replace(symbol, "", 1)
+    #     if len(s2) == 0: break
+    # return True if len(s2) == 0 else False
+
+def to_dict_of_chars(s):
+    chars_dict = dict()
+    for symbol in s:
+        if symbol not in chars_dict.keys():
+            chars_dict[symbol] = 1
+        else:
+            chars_dict[symbol] += 1
+    return chars_dict
+
+def scramble(s1, s2):
+    s1_to_chars = to_dict_of_chars(s1)
+    s2_to_chars = to_dict_of_chars(s2)
+    for char in s2_to_chars.keys():
+        if (char not in s1_to_chars.keys() or 
+            s2_to_chars[char] > s1_to_chars[char]):
+            return False
+    return True
+
+print(scramble('cedewaraaossoqqyt', 'codewars'))
