@@ -290,22 +290,54 @@ str1 characters can be rearranged to match str2, otherwise returns false.
     #     if len(s2) == 0: break
     # return True if len(s2) == 0 else False
 
-def to_dict_of_chars(s):
-    chars_dict = dict()
-    for symbol in s:
-        if symbol not in chars_dict.keys():
-            chars_dict[symbol] = 1
-        else:
-            chars_dict[symbol] += 1
-    return chars_dict
 
-def scramble(s1, s2):
-    s1_to_chars = to_dict_of_chars(s1)
-    s2_to_chars = to_dict_of_chars(s2)
-    for char in s2_to_chars.keys():
-        if (char not in s1_to_chars.keys() or 
-            s2_to_chars[char] > s1_to_chars[char]):
-            return False
-    return True
+# def to_dict_of_chars(s):  # fun creates dict containig chars and theirs amount
+#     chars_dict = dict()
+#     for symbol in s:
+#         if symbol not in chars_dict.keys():
+#             chars_dict[symbol] = 1
+#         else:
+#             chars_dict[symbol] += 1
+#     return chars_dict
 
-print(scramble('cedewaraaossoqqyt', 'codewars'))
+# def scramble(s1, s2):
+#     s1_to_chars = to_dict_of_chars(s1)
+#     s2_to_chars = to_dict_of_chars(s2)
+#     for char in s2_to_chars.keys():  # for each char in s2 compare with s1 and 
+#         if (char not in s1_to_chars.keys() or  #its amount
+#             s2_to_chars[char] > s1_to_chars[char]):
+#             return False
+#     return True
+
+# print(scramble('cedewaraaossoqqyt', 'codewars'))
+
+
+""" First non-repeating character
+
+    Write a function named first_non_repeating_letter that takes a string input, 
+and returns the first character that is not repeated anywhere in the string.
+    For example, if given the input 'stress', the function should return 't', 
+since the letter t only occurs once in the string, and occurs first in the 
+string.
+    As an added challenge, upper- and lowercase letters are considered the same 
+character, but the function should return the correct case for the initial 
+letter. For example, the input 'sTreSS' should return 'T'.
+    If a string contains all repeating characters, it should return an empty 
+string ("") or None -- see sample tests.
+
+"""
+def first_non_repeating_letter(string):
+    symbols_counter = dict()
+    for symbol in string:
+        if symbol.lower() in symbols_counter.keys():
+            symbols_counter[symbol.lower()] += 1
+        elif symbol.upper() in symbols_counter.keys(): 
+            symbols_counter[symbol.upper()] += 1
+        else: symbols_counter[symbol] = 1
+    # print(symbols_counter)
+    for symbol in symbols_counter.keys():
+        if symbols_counter[symbol] == 1:
+            return symbol
+    return ""
+
+print(first_non_repeating_letter("sTreSS"))
