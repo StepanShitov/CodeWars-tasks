@@ -317,7 +317,7 @@ str1 characters can be rearranged to match str2, otherwise returns false.
     Write a function named first_non_repeating_letter that takes a string input, 
 and returns the first character that is not repeated anywhere in the string.
     For example, if given the input 'stress', the function should return 't', 
-since the letter t only occurs once in the string, and occurs first in the 
+since the letter t only occurs once in the strin<g, and occurs first in the 
 string.
     As an added challenge, upper- and lowercase letters are considered the same 
 character, but the function should return the correct case for the initial 
@@ -326,18 +326,62 @@ letter. For example, the input 'sTreSS' should return 'T'.
 string ("") or None -- see sample tests.
 
 """
-def first_non_repeating_letter(string):
-    symbols_counter = dict()
-    for symbol in string:
-        if symbol.lower() in symbols_counter.keys():
-            symbols_counter[symbol.lower()] += 1
-        elif symbol.upper() in symbols_counter.keys(): 
-            symbols_counter[symbol.upper()] += 1
-        else: symbols_counter[symbol] = 1
-    # print(symbols_counter)
-    for symbol in symbols_counter.keys():
-        if symbols_counter[symbol] == 1:
-            return symbol
-    return ""
+# def first_non_repeating_letter(string):
+#     symbols_counter = dict()
+#     for symbol in string:
+#         if symbol.lower() in symbols_counter.keys():
+#             symbols_counter[symbol.lower()] += 1
+#         elif symbol.upper() in symbols_counter.keys(): 
+#             symbols_counter[symbol.upper()] += 1
+#         else: symbols_counter[symbol] = 1
+#     for symbol in symbols_counter.keys():
+#         if symbols_counter[symbol] == 1:
+#             return symbol
+#     return ""
 
-print(first_non_repeating_letter("sTreSS"))
+# print(first_non_repeating_letter("sTreSS"))
+
+
+""" Recover a secret string from random triplets
+
+    There is a secret string which is unknown to you. Given a collection of 
+random triplets from the string, recover the original string.
+    A triplet here is defined as a sequence of three letters such that each 
+letter occurs somewhere before the next in the given string. "whi" is a triplet 
+for the string "whatisup".
+    As a simplification, you may assume that no letter occurs more than once in 
+the secret string.
+    You can assume nothing about the triplets given to you other than that they 
+are valid triplets and that they contain sufficient information to deduce the 
+original string. In particular, this means that the secret string will never 
+contain letters that do not occur in one of the triplets given to you.
+
+"""
+# Примерный алгоритм: проходим по матрице и проверяем, встречается ли последний 
+# элемент каждой строки ещё где-то в строках, если нет, то на данный момент он 
+# является искомым, добавляем его ЛЕВЕЕ текущей строки, потом удаляем все его 
+# упоминания в матрице
+def check_if_char_is_last(char, triplets):
+    for line in triplets:
+        for symbol_index in range(2):
+            if char == line[symbol_index]: return False
+    return True
+
+def get_last_char(triplets):
+    for line in triplets:
+        char = line[2]
+        if check_if_char_is_last(char, triplets): return char
+
+def recoverSecret(triplets):  # It's better to name function recover_secret()
+    print(get_last_char(triplets))
+
+triplets = [
+  ['t','u','p'],
+  ['w','h','i'],
+  ['t','s','u'],
+  ['a','t','s'],
+  ['h','a','p'],
+  ['t','i','s'],
+  ['w','h','s']
+]
+print(recoverSecret(triplets))
