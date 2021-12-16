@@ -361,19 +361,38 @@ contain letters that do not occur in one of the triplets given to you.
 # элемент каждой строки ещё где-то в строках, если нет, то на данный момент он 
 # является искомым, добавляем его ЛЕВЕЕ текущей строки, потом удаляем все его 
 # упоминания в матрице
-def check_if_char_is_last(char, triplets):
-    for line in triplets:
-        for symbol_index in range(2):
-            if char == line[symbol_index]: return False
+def check_if_char_is_last(triplets, char):  # Looking through all lines to check 
+    for line in triplets:  # if there are any repeats of the element and its 
+        for symbol_index in range(len(line)):  # position
+            if char == line[symbol_index] and symbol_index != len(line) - 1:  
+                return False
     return True
 
-def get_last_char(triplets):
+def get_last_char(triplets):  # Looking for an element without any elements to 
+    for line in triplets:     # the right and then call that element last
+        if len(line) > 0:
+            char = line[-1]
+            if check_if_char_is_last(triplets, char): return char
+
+def check_if_matrix_is_empty(triplets):  # Check if there are still elements in 
+    for line in triplets:                # each line
+        if len(line) > 0:
+            return False
+    return True
+
+def delete_found_char(triplets, char):  # Delete element in matrix after saving
     for line in triplets:
-        char = line[2]
-        if check_if_char_is_last(char, triplets): return char
+        if char in line:
+            line.pop()
+    return triplets
 
 def recoverSecret(triplets):  # It's better to name function recover_secret()
-    print(get_last_char(triplets))
+    decoded_line = ""
+    while not check_if_matrix_is_empty(triplets):  # Keep working with matrix 
+        last_char = get_last_char(triplets)  # if there are still elements
+        triplets = delete_found_char(triplets, last_char)
+        decoded_line = "{}{}".format(last_char,decoded_line)
+    return(decoded_line)
 
 triplets = [
   ['t','u','p'],
