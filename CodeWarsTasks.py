@@ -361,46 +361,83 @@ contain letters that do not occur in one of the triplets given to you.
 # элемент каждой строки ещё где-то в строках, если нет, то на данный момент он 
 # является искомым, добавляем его ЛЕВЕЕ текущей строки, потом удаляем все его 
 # упоминания в матрице
-def check_if_char_is_last(triplets, char):  # Looking through all lines to check 
-    for line in triplets:  # if there are any repeats of the element and its 
-        for symbol_index in range(len(line)):  # position
-            if char == line[symbol_index] and symbol_index != len(line) - 1:  
-                return False
-    return True
+# def check_if_char_is_last(triplets, char):  # Looking through all lines to check 
+#     for line in triplets:  # if there are any repeats of the element and its 
+#         for symbol_index in range(len(line)):  # position
+#             if char == line[symbol_index] and symbol_index != len(line) - 1:  
+#                 return False
+#     return True
 
-def get_last_char(triplets):  # Looking for an element without any elements to 
-    for line in triplets:     # the right and then call that element last
-        if len(line) > 0:
-            char = line[-1]
-            if check_if_char_is_last(triplets, char): return char
+# def get_last_char(triplets):  # Looking for an element without any elements to 
+#     for line in triplets:     # the right and then call that element last
+#         if len(line) > 0:
+#             char = line[-1]
+#             if check_if_char_is_last(triplets, char): return char
 
-def check_if_matrix_is_empty(triplets):  # Check if there are still elements in 
-    for line in triplets:                # each line
-        if len(line) > 0:
-            return False
-    return True
+# def check_if_matrix_is_empty(triplets):  # Check if there are still elements in 
+#     for line in triplets:                # each line
+#         if len(line) > 0:
+#             return False
+#     return True
 
-def delete_found_char(triplets, char):  # Delete element in matrix after saving
-    for line in triplets:
-        if char in line:
-            line.pop()
-    return triplets
+# def delete_found_char(triplets, char):  # Delete element in matrix after saving
+#     for line in triplets:
+#         if char in line:
+#             line.pop()
+#     return triplets
 
-def recoverSecret(triplets):  # It's better to name function recover_secret()
-    decoded_line = ""
-    while not check_if_matrix_is_empty(triplets):  # Keep working with matrix 
-        last_char = get_last_char(triplets)  # if there are still elements
-        triplets = delete_found_char(triplets, last_char)
-        decoded_line = "{}{}".format(last_char,decoded_line)
-    return(decoded_line)
+# def recoverSecret(triplets):  # It's better to name function recover_secret()
+#     decoded_line = ""
+#     while not check_if_matrix_is_empty(triplets):  # Keep working with matrix 
+#         last_char = get_last_char(triplets)  # if there are still elements
+#         triplets = delete_found_char(triplets, last_char)
+#         decoded_line = "{}{}".format(last_char,decoded_line)
+#     return(decoded_line)
 
-triplets = [
-  ['t','u','p'],
-  ['w','h','i'],
-  ['t','s','u'],
-  ['a','t','s'],
-  ['h','a','p'],
-  ['t','i','s'],
-  ['w','h','s']
-]
-print(recoverSecret(triplets))
+# triplets = [
+#   ['t','u','p'],
+#   ['w','h','i'],
+#   ['t','s','u'],
+#   ['a','t','s'],
+#   ['h','a','p'],
+#   ['t','i','s'],
+#   ['w','h','s']
+# ]
+# print(recoverSecret(triplets))
+
+
+""" Title Case
+
+    A string is considered to be in title case if each word in the string is 
+either:
+(a) capitalised (that is, only the first letter of the word is in upper case) or 
+(b) considered to be an exception and put entirely into lower case unless it is
+ the first word, which is always capitalised.
+    Write a function that will convert a string into title case, given an 
+optional list of exceptions (minor words). The list of minor words will be given 
+as a string with each word separated by a space. Your function should ignore the 
+case of the minor words string -- it should behave in the same way even if the 
+case of the minor word string is changed.
+    ###Arguments (Other languages)
+First argument (required): the original string to be converted.
+Second argument (optional): space-delimited list of minor words that must always 
+be lowercase except for the first word in the string. The 
+JavaScript/CoffeeScript tests will pass undefined when this argument is unused.
+        ###Example
+    title_case('a clash of KINGS', 'a an the of') # should return: 
+        'A Clash of Kings'
+    title_case('THE WIND IN THE WILLOWS', 'The In') # should return: 
+        'The Wind in the Willows'
+    title_case('the quick brown fox') # should return: 'The Quick Brown Fox'
+
+"""
+# def title_case(title, minor_words=""):
+#     title = list(map(str.lower, title.split()))  # Getting list of lowered and 
+#     minor_words = list(map(str.lower, minor_words.split()))  # splitted words
+#     # If word isn't on 0 position or not in minor - cap them and then create 
+#     # array and return all data
+#     return " ".join([title[idx].capitalize()  
+#                      if idx == 0 or title[idx] not in minor_words 
+#                      else title[idx].lower() for idx in range(len(title))])  
+
+# print(title_case('the quick brown fox'))
