@@ -487,12 +487,12 @@ isPP(5) => None
 
 """
 import math
-from fractions import Fraction
-
 def isPP(n):
+    tolerance = 0.000000001
     for k in range(2, round(math.sqrt(n) + 1)):
-        if (Fraction(n, 1) ** Fraction(1, k)) % 1 == 0:
-            return [n ** (1. / k), k]
+        root = n ** (1 / k)
+        if abs(round(root) - root) < tolerance:
+            return [round(root), k]
     return None
 
-print(isPP(125))  
+print(isPP(27))  
