@@ -486,13 +486,24 @@ isPP(9) => [3,2]
 isPP(5) => None
 
 """
-import math
-def isPP(n):
-    tolerance = 0.000000001
-    for k in range(2, round(math.sqrt(n) + 1)):
-        root = n ** (1 / k)
-        if abs(round(root) - root) < tolerance:
-            return [round(root), k]
-    return None
+# import math
+# def isPP(n):
+#     tolerance = 0.000000001
+#     for k in range(2, round(math.sqrt(n) + 1)):
+#         root = n ** (1 / k)
+#         if abs(round(root) - root) < tolerance:
+#             return [round(root), k]
+#     return None
 
-print(isPP(27))  
+# print(isPP(27))  
+
+
+#Regex
+import re
+text = input("Enter smth: ")
+# print(re.search("[0-9a-z][^>]\w+", text))
+# print(re.search("[ab\]c-]", text))
+# print(re.search(r"\babc", text))
+# print(re.search(r"\Babc", text))
+# print(re.search(r"\Babc\B", text))
+print(re.findall(r"\bСУ\d*", text))
