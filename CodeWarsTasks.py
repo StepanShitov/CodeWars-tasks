@@ -498,12 +498,43 @@ isPP(5) => None
 # print(isPP(27))  
 
 
-#Regex
-import re
-text = input("Enter smth: ")
+# #Regex
+# import re
+# text = input("Enter smth: ")
 # print(re.search("[0-9a-z][^>]\w+", text))
 # print(re.search("[ab\]c-]", text))
 # print(re.search(r"\babc", text))
 # print(re.search(r"\Babc", text))
 # print(re.search(r"\Babc\B", text))
-print(re.findall(r"\bСУ\d*", text))
+# print(re.findall(r"\bСУ\d*", text))
+# \d+:[^<]*  # Все символы внутри html тэгов по шаблону: 
+#              <a href="#10">10: CamelCase -> under_score</a>;
+
+
+""" Extract the domain name from a URL
+
+    Write a function that when given a URL as a string, parses out just the 
+domain name and returns it as a string. For example:
+        domain_name("http://github.com/carbonfive/raygun") == "github" 
+        domain_name("http://www.zombie-bites.com") == "zombie-bites"
+        domain_name("https://www.cnet.com") == "cnet"
+
+# """
+# import re
+# def domain_name(url):
+#     return((re.search(r"(?<=//)[^w][a-zA-Z-]+|(?<=www.)[a-zA-Z-]+", url)).group(0))
+# (?<=//)[^w][0-9a-zA-Z-]+|(?<=www.)[0-9a-zA-Z-]+ 
+# (?<=//)[^w|][0-9a-zA-Z-]+|(?<=www.)[0-9a-zA-Z-]+
+# http://github.com/carbonfive/raygun
+# http://www.zombie-bites.com
+# https://www.cnet.com
+# http://google.com
+# http://google.co.jp
+# www.xakep.ru
+# https://youtube.com
+# icann.org
+# (?<=\/\/)|(?<=www\.)[0-9a-zA-Z-]+ --- ???
+# import re
+# def domain_name(url):
+#     return((re.search(r"(?!www\.|ww\.|w\.)[a-zA-Z0-9-]+(?=\.)", url)).group(0))
+    
