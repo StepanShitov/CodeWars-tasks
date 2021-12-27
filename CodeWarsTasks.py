@@ -559,24 +559,45 @@ your function should return number 1.
     All data will always be valid and uniform as in the example above.
 
 """
-def count_developers(lst):
-    #return len([worker for worker in lst if worker['continent'] == 'Europe' 
-    #            and worker['language'] == 'JavaScript']) 
-      #or
-    return sum(1 for dev in lst if dev['continent'] == 'Europe' and 
-               dev['language'] == 'JavaScript')
+# def count_developers(lst):
+#     #return len([worker for worker in lst if worker['continent'] == 'Europe' 
+#     #            and worker['language'] == 'JavaScript']) 
+#       #or
+#     return sum(1 for dev in lst if dev['continent'] == 'Europe' and 
+#                dev['language'] == 'JavaScript')
 
-list1 = [
-          { 'firstName': 'Noah', 'lastName': 'M.', 'country': 'Switzerland', 'continent': 'Europe', 'age': 19, 'language': 'JavaScript' },
-          { 'firstName': 'Maia', 'lastName': 'S.', 'country': 'Tahiti', 'continent': 'Oceania', 'age': 28, 'language': 'JavaScript' },
-          { 'firstName': 'Shufen', 'lastName': 'L.', 'country': 'Taiwan', 'continent': 'Asia', 'age': 35, 'language': 'HTML' },
-          { 'firstName': 'Sumayah', 'lastName': 'M.', 'country': 'Tajikistan', 'continent': 'Asia', 'age': 30, 'language': 'CSS' }
-        ]
+# list1 = [
+#           { 'firstName': 'Noah', 'lastName': 'M.', 'country': 'Switzerland', 'continent': 'Europe', 'age': 19, 'language': 'JavaScript' },
+#           { 'firstName': 'Maia', 'lastName': 'S.', 'country': 'Tahiti', 'continent': 'Oceania', 'age': 28, 'language': 'JavaScript' },
+#           { 'firstName': 'Shufen', 'lastName': 'L.', 'country': 'Taiwan', 'continent': 'Asia', 'age': 35, 'language': 'HTML' },
+#           { 'firstName': 'Sumayah', 'lastName': 'M.', 'country': 'Tajikistan', 'continent': 'Asia', 'age': 30, 'language': 'CSS' }
+#         ]
         
-list2 = [
-          { 'firstName': 'Oliver', 'lastName': 'Q.', 'country': 'Australia', 'continent': 'Oceania', 'age': 19, 'language': 'HTML' },
-          { 'firstName': 'Lukas', 'lastName': 'R.', 'country': 'Austria', 'continent': 'Europe', 'age': 89, 'language': 'HTML' }
-        ]        
+# list2 = [
+#           { 'firstName': 'Oliver', 'lastName': 'Q.', 'country': 'Australia', 'continent': 'Oceania', 'age': 19, 'language': 'HTML' },
+#           { 'firstName': 'Lukas', 'lastName': 'R.', 'country': 'Austria', 'continent': 'Europe', 'age': 89, 'language': 'HTML' }
+#         ]        
         
-print(count_developers(list1), 1)
-print(count_developers(list2), 0)
+# print(count_developers(list1), 1)
+# print(count_developers(list2), 0)
+
+
+""" Split strings (usinf regex)
+
+    Complete the solution so that it splits the string into pairs of two 
+characters. If the string contains an odd number of characters then it should 
+replace the missing second character of the final pair with an underscore ('_').
+Examples:
+solution('abc') # should return ['ab', 'c_']
+solution('abcdef') # should return ['ab', 'cd', 'ef']
+
+"""
+# import re
+# def solution(s):
+#     if len(s) % 2 != 0: s += "_"
+#     return re.findall(r"\w{2}", s)
+
+# print(solution("asdfadsf"))
+# print(solution("asdfads"))
+# print(solution(""))
+# print(solution("w"))
