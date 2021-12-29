@@ -601,3 +601,60 @@ solution('abcdef') # should return ['ab', 'cd', 'ef']
 # print(solution("asdfads"))
 # print(solution(""))
 # print(solution("w"))
+
+
+# def get_total_time(heroes, n):
+#     fight_time = [0 for fight in range(n)]
+#     for hero_time in heroes:
+#         fight_time[fight_time.index(min(fight_time))] += hero_time
+#     return max(fight_time)
+
+# print(get_total_time([6, 2, 9], 1))
+# print(get_total_time([11, 2, 3, 4], 2))
+# print(get_total_time([3, 5, 10], 2))
+
+
+""" IP Validation
+
+    Write an algorithm that will identify valid IPv4 addresses in dot-decimal 
+format. IPs should be considered valid if they consist of four octets, with 
+values between 0 and 255, inclusive.
+
+Valid inputs examples:
+    Examples of valid inputs:
+        1.2.3.4
+        123.45.67.89
+    Invalid input examples:
+        1.2.3
+        1.2.3.4.5
+        123.456.78.90
+        123.045.067.089
+    Notes:
+        Leading zeros (e.g. 01.02.03.04) are considered invalid
+        Inputs are guaranteed to be a single string
+
+"""
+import re
+def is_valid_IP(string):
+    if re.search(r"(?:([0-9]{0,3}\.)){3}[0-9]{1,3}", string) is not None:
+        ip_address_splitted = re.search(r"(?:([0-9]{0,3}\.)){3}[0-9]{1,3}", 
+                                        string).string.split(".")
+        for field in ip_address_splitted:
+            if (len(field) > 1 and field[0] == "0") or int(field) > 255:
+                return False
+        return True
+    return False
+
+
+print(is_valid_IP('12.255.56.1'),     True)
+print(is_valid_IP(''),                False)
+print(is_valid_IP('abc.def.ghi.jkl'), False)
+print(is_valid_IP('123.456.789.0'),   False)
+print(is_valid_IP('12.34.56'),        False)
+print(is_valid_IP('12.34.56 .1'),     False)
+print(is_valid_IP('12.34.56.-1'),     False)
+print(is_valid_IP('123.045.067.089'), False)
+print(is_valid_IP('127.1.1.0'),        True)
+print(is_valid_IP('0.0.0.0'),          True)
+print(is_valid_IP('0.34.82.53'),       True)
+print(is_valid_IP('192.168.1.300'),   False)
