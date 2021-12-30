@@ -634,27 +634,47 @@ Valid inputs examples:
         Inputs are guaranteed to be a single string
 
 """
+# import re
+# def is_valid_IP(string):
+#     if re.search(r"(?:([0-9]{0,3}\.)){3}[0-9]{1,3}", string) is not None:
+#         ip_address_splitted = re.search(r"(?:([0-9]{0,3}\.)){3}[0-9]{1,3}", 
+#                                         string).string.split(".")
+#         for field in ip_address_splitted:
+#             if (len(field) > 1 and field[0] == "0") or int(field) > 255:
+#                 return False
+#         return True
+#     return False
+
+
+# print(is_valid_IP('12.255.56.1'),     True)
+# print(is_valid_IP(''),                False)
+# print(is_valid_IP('abc.def.ghi.jkl'), False)
+# print(is_valid_IP('123.456.789.0'),   False)
+# print(is_valid_IP('12.34.56'),        False)
+# print(is_valid_IP('12.34.56 .1'),     False)
+# print(is_valid_IP('12.34.56.-1'),     False)
+# print(is_valid_IP('123.045.067.089'), False)
+# print(is_valid_IP('127.1.1.0'),        True)
+# print(is_valid_IP('0.0.0.0'),          True)
+# print(is_valid_IP('0.34.82.53'),       True)
+# print(is_valid_IP('192.168.1.300'),   False)
+
+
+""" Remove anchor from URL
+
+    Complete the function/method so that it returns the url with anything after 
+the anchor (#) removed.
+    Examples:
+        "www.codewars.com#about" --> "www.codewars.com"
+        "www.codewars.com?page=1" -->"www.codewars.com?page=1"
+
+"""
 import re
-def is_valid_IP(string):
-    if re.search(r"(?:([0-9]{0,3}\.)){3}[0-9]{1,3}", string) is not None:
-        ip_address_splitted = re.search(r"(?:([0-9]{0,3}\.)){3}[0-9]{1,3}", 
-                                        string).string.split(".")
-        for field in ip_address_splitted:
-            if (len(field) > 1 and field[0] == "0") or int(field) > 255:
-                return False
-        return True
-    return False
+def remove_url_anchor(url):
+    url_no_anchor = re.search(r".*(?=#)", url)  # Trying to find regex match 
+    return url if url_no_anchor == None else url_no_anchor.group()  # Return url 
+                                                 # w/o anchor if there is match
 
-
-print(is_valid_IP('12.255.56.1'),     True)
-print(is_valid_IP(''),                False)
-print(is_valid_IP('abc.def.ghi.jkl'), False)
-print(is_valid_IP('123.456.789.0'),   False)
-print(is_valid_IP('12.34.56'),        False)
-print(is_valid_IP('12.34.56 .1'),     False)
-print(is_valid_IP('12.34.56.-1'),     False)
-print(is_valid_IP('123.045.067.089'), False)
-print(is_valid_IP('127.1.1.0'),        True)
-print(is_valid_IP('0.0.0.0'),          True)
-print(is_valid_IP('0.34.82.53'),       True)
-print(is_valid_IP('192.168.1.300'),   False)
+print(remove_url_anchor("www.codewars.com#about"), "www.codewars.com")
+print(remove_url_anchor("www.codewars.com/katas/?page=1#about"), "www.codewars.com/katas/?page=1")
+print(remove_url_anchor("www.codewars.com/katas/"), "www.codewars.com/katas/")
