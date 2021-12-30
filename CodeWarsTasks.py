@@ -669,12 +669,67 @@ the anchor (#) removed.
         "www.codewars.com?page=1" -->"www.codewars.com?page=1"
 
 """
-import re
-def remove_url_anchor(url):
-    url_no_anchor = re.search(r".*(?=#)", url)  # Trying to find regex match 
-    return url if url_no_anchor == None else url_no_anchor.group()  # Return url 
-                                                 # w/o anchor if there is match
+# import re
+# def remove_url_anchor(url):
+#     url_no_anchor = re.search(r".*(?=#)", url)  # Trying to find regex match 
+#     return url if url_no_anchor == None else url_no_anchor.group()  # Return url 
+#                                                  # w/o anchor if there is match
 
-print(remove_url_anchor("www.codewars.com#about"), "www.codewars.com")
-print(remove_url_anchor("www.codewars.com/katas/?page=1#about"), "www.codewars.com/katas/?page=1")
-print(remove_url_anchor("www.codewars.com/katas/"), "www.codewars.com/katas/")
+# print(remove_url_anchor("www.codewars.com#about"), "www.codewars.com")
+# print(remove_url_anchor("www.codewars.com/katas/?page=1#about"), "www.codewars.com/katas/?page=1")
+# print(remove_url_anchor("www.codewars.com/katas/"), "www.codewars.com/katas/")
+
+
+""" ISBN-10 Validation
+
+    ISBN-10 identifiers are ten digits long. The first nine characters are 
+digits 0-9. The last digit can be 0-9 or X, to indicate a value of 10
+    An ISBN-10 number is valid if the sum of the digits multiplied by their 
+position modulo 11 equals zero.
+    
+    For example:
+        ISBN     : 1 1 1 2 2 2 3 3 3  9
+        position : 1 2 3 4 5 6 7 8 9 10
+    This is a valid ISBN, because:
+        (1*1 + 1*2 + 1*3 + 2*4 + 2*5 + 2*6 + 3*7 + 3*8 + 3*9 + 9*10) % 11 = 0
+    Examples:
+        1112223339   -->  true
+        111222333    -->  false
+        1112223339X  -->  false
+        1234554321   -->  true
+        1234512345   -->  false
+        048665088X   -->  true
+        X123456788   -->  false
+
+"""
+import re
+# def valid_ISBN10(isbn):
+#     isbn_valid_check = 0
+#     if len(isbn) != 10 or re.search(r"[0-9]{9}[0-9X]", isbn) == None: 
+#         return False
+#     if isbn.endswith("X"): 
+#         isbn = isbn.rstrip("X")
+#         isbn_valid_check += 100
+#     isbn = list(map(int, list(isbn)))
+#     for idx, number in enumerate(isbn):
+#         isbn_valid_check += number * (idx + 1)
+#     return True if isbn_valid_check % 11 == 0 else False
+# # SECOND Try
+# def valid_ISBN10(isbn):
+#     isbn_valid_check = 0  #Summator for final number
+#     if len(isbn) != 10 or re.search(r"[0-9]{9}[0-9X]", isbn) == None: 
+#         return False  # Check template to all numbers and throw away bad ISBNs
+#     for idx, number in enumerate(isbn):
+#         if number == "X": isbn_valid_check += 100  # If last number is X(=10)
+#         else: isbn_valid_check += int(number) * (idx + 1)  
+#     return True if isbn_valid_check % 11 == 0 else False
+
+# print(valid_ISBN10('1112223339'), True)
+# print(valid_ISBN10('048665088X'), True)
+# print(valid_ISBN10('1293000000'), True)
+# print(valid_ISBN10('1234554321'), True)
+# print(valid_ISBN10('1234512345'), False)
+# print(valid_ISBN10('1293'), False)
+# print(valid_ISBN10('X123456788'), False)
+# print(valid_ISBN10('ABCDEFGHIJ'), False)
+# print(valid_ISBN10('XXXXXXXXXX'), False)
