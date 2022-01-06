@@ -702,7 +702,7 @@ position modulo 11 equals zero.
         X123456788   -->  false
 
 """
-import re
+# import re
 # def valid_ISBN10(isbn):
 #     isbn_valid_check = 0
 #     if len(isbn) != 10 or re.search(r"[0-9]{9}[0-9X]", isbn) == None: 
@@ -733,3 +733,54 @@ import re
 # print(valid_ISBN10('X123456788'), False)
 # print(valid_ISBN10('ABCDEFGHIJ'), False)
 # print(valid_ISBN10('XXXXXXXXXX'), False)
+
+
+""" Return substring instance count -2
+
+    Complete the solution so that it returns the number of times the search_text 
+is found within the full_text.
+
+    search_substr( full_text, search_text, allow_overlap = True )
+
+so that overlapping solutions are (not) counted. If the searchText is empty, it 
+should return 0. Usage examples:
+
+search_substr('aa_bb_cc_dd_bb_e', 'bb') # should return 2 since bb shows up 
+    twice
+search_substr('aaabbbcccc', 'bbb') # should return 1
+search_substr( 'aaa', 'aa' ) # should return 2
+search_substr( 'aaa', '' ) # should return 0
+search_substr( 'aaa', 'aa', False ) # should return 1
+
+"""
+import re
+def check_with_overlap(full_text, search_text):
+    substr_with_overlap_counter = 0
+    substr = re.search(r"{0}".format(search_text), full_text)
+    while substr != None:
+        substr_with_overlap_counter += 1
+        substr_start = (substr.span())[0]
+        full_text = full_text[:substr_start] + full_text[substr_start + 1:]
+        substr = re.search(r"{0}".format(search_text), full_text)
+    return substr_with_overlap_counter
+
+
+def search_substr(full_text, search_text, allow_overlap=True):
+    if len(full_text) == 0 or len(search_text) == 0: return 0
+    if allow_overlap:
+        return(check_with_overlap(full_text, search_text))
+    else:
+        return(len(re.findall(r"{0}".format(search_text), full_text)))
+
+print(search_substr('aa_bb_cc_dd_bb_e', 'bb'), 2)
+print(search_substr('aaabbbcccc', 'bbb'), 1)
+print(search_substr('aaacccbbbcccc', 'cc'), 5)
+print(search_substr('aaa', 'aa'), 2)
+#Should handle non-overlapping cases
+print(search_substr('aaa', 'aa',False), 1)
+print(search_substr('aaabbbaaa', 'bb',False), 1)
+#Should handle empty strings on both sides
+print(search_substr('a', ''), 0)
+print(search_substr('', 'a'), 0)
+print(search_substr('', ''), 0)
+print(search_substr('', '',False), 0)
