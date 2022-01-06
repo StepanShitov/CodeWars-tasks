@@ -753,34 +753,59 @@ search_substr( 'aaa', '' ) # should return 0
 search_substr( 'aaa', 'aa', False ) # should return 1
 
 """
+# import re
+# def check_with_overlap(full_text, search_text):
+#     # looking for a match, if there is one - add counter and take 
+#     # substr[char next to search_text start:end] 
+#     substr_with_overlap_counter = 0
+#     substr = re.search(r"{0}".format(search_text), full_text)
+#     while substr != None:
+#         substr_with_overlap_counter += 1
+#         substr_start = (substr.span())[0]
+#         full_text = full_text[substr_start + 1:]
+#         substr = re.search(r"{0}".format(search_text), full_text)
+#     return substr_with_overlap_counter
+
+# def search_substr(full_text, search_text, allow_overlap=True):
+#     if len(full_text) == 0 or len(search_text) == 0: return 0
+#     if allow_overlap:
+#         # there is no methods in libs for finding non-overlap, so I created mine
+#         return(check_with_overlap(full_text, search_text))
+#     else:
+#         # findall is looking for non-overlaping substrings 
+#         return(len(re.findall(r"{0}".format(search_text), full_text)))
+
+# print(search_substr('aa_bb_cc_dd_bb_e', 'bb'), 2)
+# print(search_substr('aaabbbcccc', 'bbb'), 1)
+# print(search_substr('aaacccbbbcccc', 'cc'), 5)
+# print(search_substr('aaa', 'aa'), 2)
+# #Should handle non-overlapping cases
+# print(search_substr('aaa', 'aa',False), 1)
+# print(search_substr('aaabbbaaa', 'bb',False), 1)
+# #Should handle empty strings on both sides
+# print(search_substr('a', ''), 0)
+# print(search_substr('', 'a'), 0)
+# print(search_substr('', ''), 0)
+# print(search_substr('', '',False), 0)
+
+""" ROT13
+
+Code/Decode given text
+
+"""
 import re
-def check_with_overlap(full_text, search_text):
-    substr_with_overlap_counter = 0
-    substr = re.search(r"{0}".format(search_text), full_text)
-    while substr != None:
-        substr_with_overlap_counter += 1
-        substr_start = (substr.span())[0]
-        full_text = full_text[:substr_start] + full_text[substr_start + 1:]
-        substr = re.search(r"{0}".format(search_text), full_text)
-    return substr_with_overlap_counter
+def rot13_char_transformation(char):
+    char_code = ord(char)
+    if re.search(r"[a-zA-Z]", char) == None: return char
+    if char.islower(): 
+        return chr(char_code + 13) if char_code < 110 else chr(char_code - 13)
+    else: return chr(char_code + 13) if char_code < 78 else chr(char_code - 13)
 
+def rot13(message):
+    return "".join(list(map(rot13_char_transformation, list(message))))
 
-def search_substr(full_text, search_text, allow_overlap=True):
-    if len(full_text) == 0 or len(search_text) == 0: return 0
-    if allow_overlap:
-        return(check_with_overlap(full_text, search_text))
-    else:
-        return(len(re.findall(r"{0}".format(search_text), full_text)))
-
-print(search_substr('aa_bb_cc_dd_bb_e', 'bb'), 2)
-print(search_substr('aaabbbcccc', 'bbb'), 1)
-print(search_substr('aaacccbbbcccc', 'cc'), 5)
-print(search_substr('aaa', 'aa'), 2)
-#Should handle non-overlapping cases
-print(search_substr('aaa', 'aa',False), 1)
-print(search_substr('aaabbbaaa', 'bb',False), 1)
-#Should handle empty strings on both sides
-print(search_substr('a', ''), 0)
-print(search_substr('', 'a'), 0)
-print(search_substr('', ''), 0)
-print(search_substr('', '',False), 0)
+print(rot13("EBG13 rknzcyr."), "ROT13 example.")
+print(rot13("How can you tell an extrovert from an\nintrovert at NSA? Va gur ryringbef,\ngur rkgebireg ybbxf ng gur BGURE thl'f fubrf."), "Ubj pna lbh gryy na rkgebireg sebz na\nvagebireg ng AFN? In the elevators,\nthe extrovert looks at the OTHER guy's shoes.")
+print(rot13("123"), "123")
+print(rot13("Guvf vf npghnyyl gur svefg xngn V rire znqr. Gunaxf sbe svavfuvat vg! :)"), "This is actually the first kata I ever made. Thanks for finishing it! :)")
+print(rot13("@[`{"), "@[`{")
