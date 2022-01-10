@@ -793,19 +793,59 @@ search_substr( 'aaa', 'aa', False ) # should return 1
 Code/Decode given text
 
 """
+# import re
+# def rot13_char_transformation(char):
+#     char_code = ord(char)
+#     if re.search(r"[a-zA-Z]", char) == None: return char
+#     if char.islower(): 
+#         return chr(char_code + 13) if char_code < 110 else chr(char_code - 13)
+#     else: return chr(char_code + 13) if char_code < 78 else chr(char_code - 13)
+
+# def rot13(message):
+#     return "".join(list(map(rot13_char_transformation, list(message))))
+
+# print(rot13("EBG13 rknzcyr."), "ROT13 example.")
+# print(rot13("How can you tell an extrovert from an\nintrovert at NSA? Va gur ryringbef,\ngur rkgebireg ybbxf ng gur BGURE thl'f fubrf."), "Ubj pna lbh gryy na rkgebireg sebz na\nvagebireg ng AFN? In the elevators,\nthe extrovert looks at the OTHER guy's shoes.")
+# print(rot13("123"), "123")
+# print(rot13("Guvf vf npghnyyl gur svefg xngn V rire znqr. Gunaxf sbe svavfuvat vg! :)"), "This is actually the first kata I ever made. Thanks for finishing it! :)")
+# print(rot13("@[`{"), "@[`{")
+
+""" Javascript filter-1
+
+    While developing a website, you detect that some of the members have 
+troubles logging in. Searching through the code you find that all logins ending 
+with a "_" make problems. So you want to write a function that takes an array of 
+pairs of login-names and e-mails, and outputs an array of all login-name, 
+e-mails-pairs from the login-names that end with "_".
+    If you have the input-array:
+        [ [ "foo", "foo@foo.com" ], [ "bar_", "bar@bar.com" ] ]
+    it should output
+        [ [ "bar_", "bar@bar.com" ] ]
+
+"""
+# import re
+# def search_names(logins):
+#     return [[login[0], login[1]] for login in logins if 
+#             re.search(r"\.*?_", login[0]) != None or 
+#             re.search(r"\.*?_", login[1]) != None]
+
+# 2nd version
 import re
-def rot13_char_transformation(char):
-    char_code = ord(char)
-    if re.search(r"[a-zA-Z]", char) == None: return char
-    if char.islower(): 
-        return chr(char_code + 13) if char_code < 110 else chr(char_code - 13)
-    else: return chr(char_code + 13) if char_code < 78 else chr(char_code - 13)
+def login_check(login):
+    return True if (re.search(r"\.*?_", login[0]) != None or 
+                    re.search(r"\.*?_", login[1]) != None) else False
 
-def rot13(message):
-    return "".join(list(map(rot13_char_transformation, list(message))))
+def search_names(logins):
+    return [login for login in filter(login_check, logins)]
 
-print(rot13("EBG13 rknzcyr."), "ROT13 example.")
-print(rot13("How can you tell an extrovert from an\nintrovert at NSA? Va gur ryringbef,\ngur rkgebireg ybbxf ng gur BGURE thl'f fubrf."), "Ubj pna lbh gryy na rkgebireg sebz na\nvagebireg ng AFN? In the elevators,\nthe extrovert looks at the OTHER guy's shoes.")
-print(rot13("123"), "123")
-print(rot13("Guvf vf npghnyyl gur svefg xngn V rire znqr. Gunaxf sbe svavfuvat vg! :)"), "This is actually the first kata I ever made. Thanks for finishing it! :)")
-print(rot13("@[`{"), "@[`{")
+a = [[ "foo", "foo@foo.com" ], [ "bar_", "bar@bar.com" ] ]
+b = [ [ "bar_", "bar@bar.com" ] ]
+print(search_names(a), b)
+
+a = [[ "foobar_", "foo@foo.com" ], [ "bar_", "bar@bar.com" ] ]
+b = [[ "foobar_", "foo@foo.com" ], [ "bar_", "bar@bar.com" ] ]
+print(search_names(a), b)
+
+a = [[ "foo", "foo@foo.com" ], [ "bar", "bar@bar.com" ] ]
+b = []
+print(search_names(a), b)
