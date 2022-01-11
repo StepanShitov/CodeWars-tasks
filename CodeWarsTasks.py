@@ -830,22 +830,127 @@ e-mails-pairs from the login-names that end with "_".
 #             re.search(r"\.*?_", login[1]) != None]
 
 # 2nd version
-import re
-def login_check(login):
-    return True if (re.search(r"\.*?_", login[0]) != None or 
-                    re.search(r"\.*?_", login[1]) != None) else False
+# import re
+# def login_check(login):
+#     return True if (re.search(r"\.*?_", login[0]) != None or 
+#                     re.search(r"\.*?_", login[1]) != None) else False
 
-def search_names(logins):
-    return [login for login in filter(login_check, logins)]
+# def search_names(logins):
+#     return [login for login in filter(login_check, logins)]
 
-a = [[ "foo", "foo@foo.com" ], [ "bar_", "bar@bar.com" ] ]
-b = [ [ "bar_", "bar@bar.com" ] ]
-print(search_names(a), b)
+# a = [[ "foo", "foo@foo.com" ], [ "bar_", "bar@bar.com" ] ]
+# b = [ [ "bar_", "bar@bar.com" ] ]
+# print(search_names(a), b)
 
-a = [[ "foobar_", "foo@foo.com" ], [ "bar_", "bar@bar.com" ] ]
-b = [[ "foobar_", "foo@foo.com" ], [ "bar_", "bar@bar.com" ] ]
-print(search_names(a), b)
+# a = [[ "foobar_", "foo@foo.com" ], [ "bar_", "bar@bar.com" ] ]
+# b = [[ "foobar_", "foo@foo.com" ], [ "bar_", "bar@bar.com" ] ]
+# print(search_names(a), b)
 
-a = [[ "foo", "foo@foo.com" ], [ "bar", "bar@bar.com" ] ]
-b = []
-print(search_names(a), b)
+# a = [[ "foo", "foo@foo.com" ], [ "bar", "bar@bar.com" ] ]
+# b = []
+# print(search_names(a), b)
+
+""" Coordinates Validator
+
+    You need to create a function that will validate if given parameters are 
+valid geographical coordinates.
+    Valid coordinates look like the following: "23.32353342, -32.543534534". The 
+return value should be either true or false.
+    Latitude (which is first float) can be between 0 and 90, positive or 
+negative. Longitude (which is second float) can be between 0 and 180, positive 
+or negative.
+    Coordinates can only contain digits, or one of the following symbols 
+(including space after comma) __ -, . __
+    There should be no space between the minus "-" sign and the digit after it.
+Here are some valid coordinates:
+-23, 25
+24.53525235, 23.45235
+04, -23.234235
+43.91343345, 143
+4, -3
+
+"""
+# import re
+# def is_valid_coordinates(coordinates):
+#     coordinates = coordinates.split(", ")
+#     for coordinate in coordinates:
+#         if (len(re.search(r"-*\d{1,3}\.*\d*", coordinate).group()) 
+#             != len(coordinate)):
+#             return False
+#     try:
+#         coordinates[0] = float(coordinates[0])
+#         coordinates[1] = float(coordinates[1])
+#         return True if (-90 <= coordinates[0] <= 90 
+#                         and -180 <= coordinates[1] <= 180) else False
+#     except ValueError:
+#         return False
+
+# print(is_valid_coordinates("-23, 25"))
+# print(is_valid_coordinates("4, -3"))
+# print(is_valid_coordinates("24.53525235, 23.45235"))
+# print(is_valid_coordinates("04, -23.234235"))
+# print(is_valid_coordinates("43.91343345, 143"))
+# print(is_valid_coordinates("23.245, 1e1"))
+
+""" Most frequently used words in a text
+
+    Write a function that, given a string of text (possibly with punctuation and 
+line-breaks), returns an array of the top-3 most occurring words, in descending 
+order of the number of occurrences.
+    Assumptions:
+- A word is a string of letters (A to Z) optionally containing one or more 
+apostrophes (') in ASCII.
+- Apostrophes can appear at the start, middle or end of a word ('abc, abc', 
+'abc', ab'c are all valid)
+- Any other characters (e.g. #, \, / , . ...) are not part of a word and should 
+be treated as whitespace.
+- Matches should be case-insensitive, and the words in the result should be 
+lowercased.
+- Ties may be broken arbitrarily.
+- If a text contains fewer than three unique words, then either the top-2 or 
+top-1 words should be returned, or an empty array if a text contains no words.
+    Examples:
+top_3_words("In a village of La Mancha, the name of which I have no desire to 
+call to mind, there lived not long since one of those gentlemen that keep a 
+lance in the lance-rack, an old buckler, a lean hack, and a greyhound for
+coursing. An olla of rather more beef than mutton, a salad on most
+nights, scraps on Saturdays, lentils on Fridays, and a pigeon or so extra
+on Sundays, made away with three-quarters of his income.")
+# => ["a", "of", "on"]
+
+top_3_words("e e e e DDD ddd DdD: ddd ddd aa aA Aa, bb cc cC e e e")
+# => ["e", "ddd", "aa"]
+
+top_3_words("  //wont won't won't")
+# => ["won't", "wont"]
+
+"""
+# import re
+# def top_3_words(text):
+#     words = dict()
+#     # word = (maybe)' + (one or more)word + (maybe)' + (maybe)word
+#     word = r"\'*[a-zA-Z-]+\'*[a-zA-Z-]*"
+#     splitted_text = list(map(lambda x: x.lower(), re.findall(word, text)))
+#     for word in splitted_text:
+#         if word in words.keys(): words[word] += 1
+#         else: words[word] = 1
+#     # Sort dict by number of repeats in ascending order of frequency
+#     words = sorted(words.items(), key=lambda x: x[1], reverse=True)
+#     if len(words) >= 3:
+#         return [word[0] for word in words[:3]]
+#     else:
+#         return [word[0] for word in words]
+        
+# print(top_3_words("a a a  b  c c  d d d d  e e e e e"), ["e", "d", "a"])
+# print(top_3_words("e e e e DDD ddd DdD: ddd ddd aa aA Aa, bb cc cC e e e"), ["e", "ddd", "aa"])
+# print(top_3_words("  //wont won't won't "), ["won't", "wont"])
+# print(top_3_words("  , e   .. "), ["e"])
+# print(top_3_words("  ...  "), [])
+# print(top_3_words("  '  "), [])
+# print(top_3_words("  '''  "), [])
+# print(top_3_words("""In a village of La Mancha, the name of which I have no desire to call to
+# mind, there lived not long since one of those gentlemen that keep a lance
+# in the lance-rack, an old buckler, a lean hack, and a greyhound for
+# coursing. An olla of rather more beef than mutton, a salad on most
+# nights, scraps on Saturdays, lentils on Fridays, and a pigeon or so extra
+# on Sundays, made away with three-quarters of his income."""), ["a", "of", "on"])
