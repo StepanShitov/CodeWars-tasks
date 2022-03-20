@@ -954,3 +954,186 @@ top_3_words("  //wont won't won't")
 # coursing. An olla of rather more beef than mutton, a salad on most
 # nights, scraps on Saturdays, lentils on Fridays, and a pigeon or so extra
 # on Sundays, made away with three-quarters of his income."""), ["a", "of", "on"])
+
+""" ISBN-10 Validation
+
+    ISBN-10 identifiers are ten digits long. The first nine characters are 
+digits 0-9. The last digit can be 0-9 or X, to indicate a value of 10.
+    An ISBN-10 number is valid if the sum of the digits multiplied by their 
+position modulo 11 equals zero.
+
+For example:
+ISBN     : 1 1 1 2 2 2 3 3 3  9
+position : 1 2 3 4 5 6 7 8 9 10
+This is a valid ISBN, because:
+(1*1 + 1*2 + 1*3 + 2*4 + 2*5 + 2*6 + 3*7 + 3*8 + 3*9 + 9*10) % 11 = 0
+
+"""
+
+# import re
+
+# def valid_ISBN10(isbn):
+#     if re.search(r"[0-9]{9}([0-9]{1}|X{1})", isbn) != None and len(isbn) < 10:
+#         if sum([ int(digit) * (position + 1) if digit != "X" else 100 for 
+#            position, digit in enumerate(isbn)]) % 11 == 0:
+#             return True
+#     return False
+    
+
+# valid_ISBN10("1112223339")
+# valid_ISBN10("111222333")
+# valid_ISBN10("1112223339X")
+# valid_ISBN10("048665088X")
+# print(valid_ISBN10("45673749913"))
+            
+""" Decode Morse
+
+    In this kata you have to write a simple Morse code decoder. While the Morse 
+code is now mostly superseded by voice and digital data communication channels, 
+it still has its use in some applications around the world.
+    The Morse code encodes every character as a sequence of "dots" and "dashes". 
+For example, the letter A is coded as ·−, letter Q is coded as −−·−, and digit 1 
+is coded as ·−−−−. The Morse code is case-insensitive, traditionally capital 
+letters are used. When the message is written in Morse code, a single space is 
+used to separate the character codes and 3 spaces are used to separate words. 
+For example, the message HEY JUDE in Morse code is ···· · −·−−   ·−−− ··− −·· ·.
+    NOTE: Extra spaces before or after the code have no meaning and should be 
+          ignored.
+    In addition to letters, digits and some punctuation, there are some special 
+service codes, the most notorious of those is the international distress signal 
+SOS (that was first issued by Titanic), that is coded as ···−−−···. These 
+special codes are treated as single special characters, and usually are 
+transmitted as separate words.
+    Your task is to implement a function that would take the morse code as input 
+and return a decoded human-readable string.
+    For example:
+    decode_morse('.... . -.--   .--- ..- -.. .')
+    #should return "HEY JUDE"
+    NOTE: For coding purposes you have to use ASCII characters . and -, not 
+          Unicode characters.
+    
+Good luck!
+
+"""
+# ENGLISH_TO_MORSE = {'A': '.-', 'B': '-...', 'C': '-.-.', 'D': '-..', 'E': '.', 'F': '..-.', 'G': '--.', 'H': '....',
+#                     'I': '..', 'J': '.---', 'K': '-.-', 'L': '.-..', 'M': '--', 'N': '-.', 'O': '---', 'P': '.--.',
+#                     'Q': '--.-', 'R': '.-.', 'S': '...', 'T': '-', 'U': '..-', 'V': '...-', 'W': '.--', 'X': '-..-',
+#                     'Y': '-.--', 'Z': '--..', '0': '-----', '1': '.----', '2': '..---', '3': '...--', '4': '....-',
+#                     '5': '.....', '6': '-....', '7': '--...', '8': '---..', '9': '----.',  'SOS': '...---...', '!': '-.-.--',
+#                     '.': '.-.-.-', ',': '--..--'}
+
+# def decode_morse(morse_code):
+#     decoded_text = ""
+#     morse_code = morse_code.split("   ")
+#     morse_code = list(map(lambda word: word.split(), morse_code))
+#     for word in morse_code:
+#         for char in word:
+#             if char in ENGLISH_TO_MORSE.values():
+#                 char_position = list(ENGLISH_TO_MORSE.values()).index(char)
+#                 decoded_text += list(ENGLISH_TO_MORSE.keys())[char_position]
+#         decoded_text += " "
+#     return decoded_text.strip()
+                
+
+# decode_morse('.... . -.--   .--- ..- -.. .')
+
+
+""" Smalles possible sum
+
+    Given an array X of positive integers, its elements are to be transformed by 
+running the following operation on them as many times as required:
+    if X[i] > X[j] then X[i] = X[i] - X[j]
+    When no more transformations are possible, return its sum ("smallest 
+possible sum").
+    For instance, the successive transformation of the elements of input 
+X = [6, 9, 21] is detailed below:
+X_1 = [6, 9, 12] # -> X_1[2] = X[2] - X[1] = 21 - 9
+X_2 = [6, 9, 6]  # -> X_2[2] = X_1[2] - X_1[0] = 12 - 6
+X_3 = [6, 3, 6]  # -> X_3[1] = X_2[1] - X_2[0] = 9 - 6
+X_4 = [6, 3, 3]  # -> X_4[2] = X_3[2] - X_3[1] = 6 - 3
+X_5 = [3, 3, 3]  # -> X_5[1] = X_4[0] - X_4[1] = 6 - 3
+The returning output is the sum of the final transformation (here 9).
+
+Example
+solution([6, 9, 21]) #-> 9
+Solution steps:
+[6, 9, 12] #-> X[2] = 21 - 9
+[6, 9, 6] #-> X[2] = 12 - 6
+[6, 3, 6] #-> X[1] = 9 - 6
+[6, 3, 3] #-> X[2] = 6 - 3
+[3, 3, 3] #-> X[1] = 6 - 3
+Additional notes:
+    There are performance tests consisted of very big numbers and arrays of size 
+at least 30000. Please write an efficient algorithm to prevent timeout.
+
+"""
+import math
+
+def find_pairs2(a):
+    while True:
+        pairs_flag = False
+        for i in range(len(a)):
+            next_element = a[(i + 1) % len(a)]
+            previous_element = a[(i - 1 + len(a)) % len(a)]
+            if a[i] > next_element or a[i] > previous_element:
+                pairs_flag = True
+                while a[i] > next_element:
+                    a[i] -= next_element
+                while a[i] > previous_element:
+                    a[i] -= previous_element
+        if pairs_flag == False: break;
+    return(a)
+
+                    
+def find_pairs1(a):
+    while True:
+        pairs_flag = False
+        for idx in range(1,len(a) - 1):
+            if a[idx] > a[idx + 1]:
+                a[idx] = a[idx] - a[idx + 1]
+                if pairs_flag == False: pairs_flag = True
+        if pairs_flag == False:
+            break;
+    return(a)
+
+def find_pairs_GCD_edition(a):
+    all_gcds = []
+    prev_gcd = a[0]
+    for i in range(len(a)):
+        for gcd in range(prev_gcd, 0, -1):
+            if prev_gcd % gcd == 0 and a[(i + 1) % len(a)] % gcd == 0 and a[(i - 1 + len(a)) % len(a)] % gcd == 0:
+                all_gcds.append(gcd)
+                prev_gcd = gcd
+                break
+    return(all_gcds)
+
+def find_pairs(a):
+    all_gcds = []
+    prev_gcd = a[0]
+    for i in range(10):
+        for gcd in range(prev_gcd, 0, -1):
+            if prev_gcd % gcd == 0 and a[(i + 1) % len(a)] % gcd == 0 and a[(i - 1 + len(a)) % len(a)] % gcd == 0:
+                all_gcds.append(gcd)
+                prev_gcd = gcd
+                break
+    
+    counted_elements = {}
+    for i in range(10):
+        if all_gcds[i] in counted_elements.keys(): counted_elements[all_gcds[i]] += 1
+        else: counted_elements[all_gcds[i]] = 1
+    
+    return( sorted(counted_elements.items(), key=lambda kv: kv[1])[0][0]) 
+    # print(counted_elements)
+    # return(all_gcds)
+
+def solution(a):
+    print(find_pairs(a))
+
+solution([3, 2, 1])
+solution([3, 4, 5, 1])
+solution([6, 9, 21])
+solution([1, 21, 55])
+solution([9])
+solution([137641, 203401, 9409, 44944, 3025, 116964, 34969, 169744, 71824, 31684, 17956])
+#66
+solution([195364, 128164, 8100, 145161, 235225, 71824, 20449, 102400, 21316, 12100, 107584, 5929, 20736, 233289, 126736, 12100, 12544, 96721, 57121, 46225, 190096, 73441, 4096, 70756, 69169, 168100, 196249, 7569, 78400, 116281, 20164, 7569, 193600, 42436, 5041, 61009, 2809, 175561, 108900, 14161, 160000, 165649, 108900, 87025, 159201, 52900, 153664, 248004, 176400, 49729, 80656, 168921, 25600, 81225, 204304, 33856, 176400, 33489, 48841, 61009, 22801, 10201, 116281, 6724, 64009, 170569])
