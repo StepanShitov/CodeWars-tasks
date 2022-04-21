@@ -11,6 +11,7 @@
 
 chars = input()
 step = 1
+buf = "test string"
 out = [[]]
 
 while step <= len(chars):
